@@ -1,0 +1,32 @@
+ORG 0000H
+LJMP MAIN
+
+ORG 0030H
+DB 'abcdefghijklmnopqrstuvwxyz'
+MAIN:
+	;AQ BIT 20H
+	SETB 20H.1
+	SETB 20H.2
+	MOV R0, #0DEH
+	MOV 20H, R0
+	MOV    P1, #0FFH  
+	;SETB   P1.0
+	LCALL  DELAY
+	MOV    P1, #00H
+	;CLR    P1.0
+	LCALL  DELAY
+	AJMP   MAIN
+
+DELAY:
+	MOV R7,#7
+	
+	D1: MOV   R6, #250
+	D2: MOV   R5, #250
+	D3: DJNZ  R5, D3
+	
+	DJNZ  R6, D2
+	DJNZ  R7, D1
+	
+	RET
+
+END
